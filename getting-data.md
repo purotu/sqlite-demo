@@ -1,3 +1,8 @@
+---
+layout: default
+title: Tiedon hakeminen
+nav_order: 5
+---
 # Tietojen hakeminen
 
 Tietojen hakeminen tietokannasta. Tämä onnistuu SQL-kyselyiden avulla, jotka ovat tietokannan kyselykieltä. SQLite tukee monia SQL-käskyjä, mutta tässä keskitymme peruskäskyihin, joita tarvitset tietojen hakemiseen.

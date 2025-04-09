@@ -1,3 +1,8 @@
+---
+layout: default
+title: Tietojen tuominen
+nav_order: 6
+---
 # Tietojen tuominen SQLite-tietokantaan
 
 Voit tuoda tietoja SQLite-tietokantaan useilla eri tavoilla. Tässä on muutamia yleisimpiä menetelmiä:

@@ -1,3 +1,8 @@
+---
+layout: default
+title: SQLite peruskäyttö
+nav_order: 1
+---
 # SQLite peruskäyttö
 
 SQLite on tietokantaohjelmisto, joka on suunniteltu erityisesti käytettäväksi sovelluksissa, joissa tarvitaan kevyttä ja tehokasta tietokannan hallintaa. SQLite on itsenäinen, palvelinvapaa ja nollakonfiguroitava tietokanta, joka tallentaa tiedot yhteen tiedostoon.

@@ -1,0 +1,21 @@
+title: SQLite ohjeita
+description: Ohjeita SQLite-tietokannan käyttöön
+theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
+search_enabled: true
+permalink: pretty
+nav:
+  - title: "Home"
+    url: "/"
+  - title: "Installation"
+    url: "/01-installation"
+  - title: "New Database"
+    url: "/02-new-database"
+  - title: "Handling Tables"
+    url: "/03-handling-tables"
+  - title: "Getting Data"
+    url: "/04-getting-data"
+  - title: "Importing Data"
+    url: "/05-importing-data"
+  - title: "SQLite Tools"
+    url: "/06-sqlite-tools"

@@ -1,3 +1,8 @@
+---
+layout: default
+title: SQLite-työkaluja
+nav_order: 7
+---
 # SQLite työkaluja
 
 SQLiten käyttämisen avuksi on monia käteviä työkaluja ja kirjastoja, jotka helpottavat tietokannan hallintaa ja käyttöä. Tässä on joitakin suosituimmista työkaluista:
