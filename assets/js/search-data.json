@@ -1,0 +1,177 @@
+{"0": {
+    "doc": "Tiedon hakeminen",
+    "title": "Tietojen hakeminen",
+    "content": "Tietojen hakeminen tietokannasta. Tämä onnistuu SQL-kyselyiden avulla, jotka ovat tietokannan kyselykieltä. SQLite tukee monia SQL-käskyjä, mutta tässä keskitymme peruskäskyihin, joita tarvitset tietojen hakemiseen. ",
+    "url": "/getting-data/#tietojen-hakeminen",
+    
+    "relUrl": "/getting-data/#tietojen-hakeminen"
+  },"1": {
+    "doc": "Tiedon hakeminen",
+    "title": "Tietojen hakeminen SELECT-käskyllä",
+    "content": "Tietojen hakeminen SQLite-tietokannasta tapahtuu pääasiassa SELECT-käskyllä. Tämä komento mahdollistaa tietojen valitsemisen ja hakemisen taulusta. Esimerkiksi seuraava komento hakee kaikki tiedot users-taulusta: . SELECT * FROM users; . Tässä esimerkissä * tarkoittaa, että kaikki sarakkeet valitaan. Voit myös valita vain tietyt sarakkeet seuraavasti: . SELECT name, email FROM users; . Tässä esimerkissä valitaan vain name ja email sarakkeet users-taulusta. Voit myös lisätä ehtoja tietojen hakemiseen WHERE-lauseella. Esimerkiksi seuraava komento hakee kaikki käyttäjät, joiden ikä on yli 18 vuotta: . SELECT * FROM users WHERE age &gt; 18; . Tässä esimerkissä WHERE-lause määrittää ehdon, jonka mukaan vain ne käyttäjät, joiden ikä on yli 18 vuotta, valitaan. Voit myös käyttää ORDER BY-lausetta tietojen järjestämiseen. Esimerkiksi seuraava komento hakee kaikki käyttäjät ja järjestää ne nimen mukaan aakkosjärjestykseen: . SELECT * FROM users ORDER BY name ASC; . Tässä esimerkissä ORDER BY-lause järjestää tulokset nimen mukaan nousevassa järjestyksessä (ASC tarkoittaa “ascending”, eli nouseva järjestys). Voit myös käyttää DESC-lausetta laskevan järjestyksen määrittämiseen: . SELECT * FROM users ORDER BY name DESC; . Tässä esimerkissä DESC tarkoittaa “descending”, eli laskeva järjestys. Voit myös rajoittaa tulosten määrää LIMIT-lauseella. Esimerkiksi seuraava komento hakee vain kolme ensimmäistä käyttäjää: . SELECT * FROM users LIMIT 3; . Tässä esimerkissä LIMIT-lause rajoittaa tulosten määrän kolmeen ensimmäiseen käyttäjään. Voit myös yhdistää useita ehtoja AND- ja OR-lauseilla. Esimerkiksi seuraava komento hakee kaikki käyttäjät, joiden ikä on yli 18 vuotta ja jotka asuvat Helsingissä: . SELECT * FROM users WHERE age &gt; 18 AND city = 'Helsinki'; . Tässä esimerkissä AND-lause yhdistää kaksi ehtoa, jolloin vain ne käyttäjät, jotka täyttävät molemmat ehdot, valitaan. Voit myös käyttää OR-lausetta, jos haluat valita käyttäjät, jotka täyttävät ainakin yhden ehdon: . SELECT * FROM users WHERE age &gt; 18 OR city = 'Helsinki'; . Tässä esimerkissä OR-lause yhdistää kaksi ehtoa, jolloin kaikki käyttäjät, jotka täyttävät ainakin yhden ehdon, valitaan. Voit myös käyttää LIKE-lausetta osittaiseen vertailuun. Esimerkiksi seuraava komento hakee kaikki käyttäjät, joiden nimi alkaa kirjaimella “A”: . SELECT * FROM users WHERE name LIKE 'A%'; . Tässä esimerkissä LIKE-lause yhdistää osittaisen vertailun, jolloin kaikki käyttäjät, joiden nimi alkaa kirjaimella “A”, valitaan. % tarkoittaa, että nimen jälkeen voi olla mitä tahansa merkkejä. Voit myös käyttää IN-lausetta useiden arvojen vertailuun. Esimerkiksi seuraava komento hakee kaikki käyttäjät, joiden ikä on joko 18, 20 tai 25 vuotta: . SELECT * FROM users WHERE age IN (18, 20, 25); . Tässä esimerkissä IN-lause yhdistää useita arvoja, jolloin kaikki käyttäjät, joiden ikä on joko 18, 20 tai 25 vuotta, valitaan. Voit myös käyttää BETWEEN-lausetta tietyn arvovälin valitsemiseen. Esimerkiksi seuraava komento hakee kaikki käyttäjät, joiden ikä on 18 ja 25 vuoden välillä: . SELECT * FROM users WHERE age BETWEEN 18 AND 25; . Tässä esimerkissä BETWEEN-lause yhdistää arvovälin, jolloin kaikki käyttäjät, joiden ikä on 18 ja 25 vuoden välillä, valitaan. Voit myös käyttää GROUP BY-lausetta tietojen ryhmittelyyn. Esimerkiksi seuraava komento hakee käyttäjien määrän jokaisessa kaupungissa: . SELECT city, COUNT(*) FROM users GROUP BY city; . Tässä esimerkissä GROUP BY-lause ryhmittelee tulokset kaupungin mukaan, jolloin saadaan jokaisen kaupungin käyttäjien määrä. Voit myös käyttää HAVING-lausetta ehtojen määrittämiseen ryhmitellyille tuloksille. Esimerkiksi seuraava komento hakee kaupungit, joissa on yli 10 käyttäjää: . SELECT city, COUNT(*) FROM users GROUP BY city HAVING COUNT(*) &gt; 10; . Tässä esimerkissä HAVING-lause määrittää ehdon ryhmitellyille tuloksille, jolloin vain kaupungit, joissa on yli 10 käyttäjää, valitaan. Voit myös käyttää JOIN-lausetta yhdistämään tietoja useista tauluista. Esimerkiksi seuraava komento hakee kaikki tilaukset ja niiden käyttäjät: . SELECT orders.*, users.name FROM orders JOIN users ON orders.user_id = users.id; . Tässä esimerkissä JOIN-lause yhdistää orders- ja users-taulut käyttäjän ID:n perusteella, jolloin saadaan kaikki tilaukset ja niiden käyttäjät. Voit myös käyttää LEFT JOIN-lausetta, jos haluat näyttää kaikki tilaukset, vaikka niillä ei olisi vastaavaa käyttäjää: . SELECT orders.*, users.name FROM orders LEFT JOIN users ON orders.user_id = users.id; . Tässä esimerkissä LEFT JOIN-lause yhdistää orders- ja users-taulut käyttäjän ID:n perusteella, mutta näyttää myös kaikki tilaukset, vaikka niillä ei olisi vastaavaa käyttäjää. Voit myös käyttää RIGHT JOIN-lausetta, jos haluat näyttää kaikki käyttäjät, vaikka heillä ei olisi tilauksia: . SELECT orders.*, users.name FROM orders RIGHT JOIN users ON orders.user_id = users.id; . Tässä esimerkissä RIGHT JOIN-lause yhdistää orders- ja users-taulut käyttäjän ID:n perusteella, mutta näyttää myös kaikki käyttäjät, vaikka heillä ei olisi tilauksia. Voit myös käyttää FULL OUTER JOIN-lausetta, jos haluat näyttää kaikki käyttäjät ja tilaukset, vaikka niillä ei olisi vastaavaa toisiaan: . SELECT orders.*, users.name FROM orders FULL OUTER JOIN users ON orders.user_id = users.id; . Tässä esimerkissä FULL OUTER JOIN-lause yhdistää orders- ja users-taulut käyttäjän ID:n perusteella, mutta näyttää myös kaikki käyttäjät ja tilaukset, vaikka niillä ei olisi vastaavaa toisiaan. Voit myös käyttää UNION-lausetta yhdistämään useita kyselyitä. Esimerkiksi seuraava komento hakee kaikki käyttäjät ja tilaukset: . SELECT name FROM users UNION SELECT product FROM orders; . Tässä esimerkissä UNION-lause yhdistää kaksi kyselyä, jolloin saadaan kaikki käyttäjät ja tilaukset. Voit myös käyttää INTERSECT-lausetta yhdistämään useita kyselyitä, jolloin saadaan vain ne tulokset, jotka ovat molemmissa kyselyissä. Esimerkiksi seuraava komento hakee kaikki käyttäjät, jotka ovat myös tilanneet jotain: . SELECT name FROM users INTERSECT SELECT product FROM orders; . Tässä esimerkissä INTERSECT-lause yhdistää kaksi kyselyä, jolloin saadaan vain ne käyttäjät, jotka ovat myös tilanneet jotain. Voit myös käyttää EXCEPT-lausetta yhdistämään useita kyselyitä, jolloin saadaan vain ne tulokset, jotka ovat ensimmäisessä kyselyssä, mutta eivät toisessa. Esimerkiksi seuraava komento hakee kaikki käyttäjät, jotka eivät ole tilanneet mitään: . SELECT name FROM users EXCEPT SELECT product FROM orders; . Tässä esimerkissä EXCEPT-lause yhdistää kaksi kyselyä, jolloin saadaan vain ne käyttäjät, jotka eivät ole tilanneet mitään. ",
+    "url": "/getting-data/#tietojen-hakeminen-select-k%C3%A4skyll%C3%A4",
+    
+    "relUrl": "/getting-data/#tietojen-hakeminen-select-käskyllä"
+  },"2": {
+    "doc": "Tiedon hakeminen",
+    "title": "Tiedon hakeminen",
+    "content": " ",
+    "url": "/getting-data/",
+    
+    "relUrl": "/getting-data/"
+  },"3": {
+    "doc": "Taulujen käsittely",
+    "title": "Taulujen käsittely",
+    "content": "Taulujen käsittely SQLite-tietokannassa on tärkeä osa tietokannan hallintaa. Taulut ovat tietokannan perusyksiköitä, ja ne sisältävät tietoja, jotka on järjestetty riveihin ja sarakkeisiin. Tässä osassa käsitellään taulujen luomista, muokkaamista ja poistamista SQLite-tietokannassa. ",
+    "url": "/handling-tables/",
+    
+    "relUrl": "/handling-tables/"
+  },"4": {
+    "doc": "Taulujen käsittely",
+    "title": "Taulujen luominen",
+    "content": "Taulujen luominen SQLite-tietokannassa tapahtuu SQL-käskyjen avulla. Voit määrittää taulun nimen, sarakkeet ja niiden tietotyypit. Esimerkiksi seuraava komento luo taulun nimeltä users, jossa on kolme saraketta: id, name ja email: . CREATE TABLE users ( id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE ); . Tässä: . | id on ensisijainen avain (PRIMARY KEY, joka yksilöi jokaisen rivin. | name- ja email ovat tekstikenttiä (TEXT), jotka eivät voi olla tyhjiä (NOT NULL). | email-kentän arvojen on oltava ainutlaatuisia (UNIQUE). | . Useiden taulujen luominen . Voit luoda useita tauluja samalla komennolla erottamalla ne puolipisteellä. Esimerkiksi: . CREATE TABLE users ( id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE ); CREATE TABLE orders ( id INTEGER PRIMARY KEY, user_id INTEGER NOT NULL, product TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id) ); . Tässä esimerkissä luodaan kaksi taulua: users ja orders. orders-taulussa on viittaus users-tauluun, mikä tarkoittaa, että jokaisella tilauksella on liittyvä käyttäjä. ",
+    "url": "/handling-tables/#taulujen-luominen",
+    
+    "relUrl": "/handling-tables/#taulujen-luominen"
+  },"5": {
+    "doc": "Taulujen käsittely",
+    "title": "Taulujen tarkastelu",
+    "content": "Kun haluat katsoa luomasi taulut, voit käyttää seuraavaa komentoa: . SELECT name FROM sqlite_master WHERE type='table'; . Tämä komento palauttaa luettelon kaikista tietokannan tauluista. Voit tarkastella tietokannan tauluja ja niiden rakennetta käyttämällä PRAGMA-komentoa. Esimerkiksi seuraava komento näyttää kaikki tietokannan taulut: . PRAGMA table_info(users); . Tässä esimerkissä table_info näyttää taulun users sarakkeet ja niiden tietotyypit. Voit myös tarkastella kaikkia tietokannan tauluja seuraavalla komennolla: . SELECT name FROM sqlite_master WHERE type='table'; . Tässä esimerkissä sqlite_master-taulusta haetaan kaikki taulut, jotka ovat tyyppiä table. Tämä komento palauttaa luettelon kaikista tietokannan tauluista. ",
+    "url": "/handling-tables/#taulujen-tarkastelu",
+    
+    "relUrl": "/handling-tables/#taulujen-tarkastelu"
+  },"6": {
+    "doc": "Taulujen käsittely",
+    "title": "Taulujen muokkaaminen",
+    "content": "Taulujen muokkaaminen SQLite-tietokannassa voidaan tehdä useilla tavoilla. Voit lisätä uusia sarakkeita, muuttaa olemassa olevien sarakkeiden tietotyyppejä tai poistaa sarakkeita. Esimerkiksi seuraava komento lisää uuden sarakkeen age tauluun users: . ALTER TABLE users ADD COLUMN age INTEGER; . Tässä esimerkissä lisätään uusi sarake age, jonka tietotyyppi on INTEGER. Voit myös muuttaa olemassa olevan sarakkeen tietotyyppiä seuraavalla komennolla: . ALTER TABLE users RENAME COLUMN name TO full_name; . Tässä esimerkissä sarakkeen name nimi muutetaan full_name:ksi. Huomaa, että sarakkeen tietotyyppiä ei voi muuttaa suoraan SQLite-tietokannassa, mutta voit luoda uuden sarakkeen haluamallasi tietotyypillä ja siirtää tiedot vanhasta sarakkeesta uuteen. ",
+    "url": "/handling-tables/#taulujen-muokkaaminen",
+    
+    "relUrl": "/handling-tables/#taulujen-muokkaaminen"
+  },"7": {
+    "doc": "Taulujen käsittely",
+    "title": "Taulujen poistaminen",
+    "content": "Taulujen poistaminen SQLite-tietokannasta tapahtuu DROP TABLE -komennolla. Esimerkiksi seuraava komento poistaa users-taulun: . DROP TABLE users; . Tässä esimerkissä users-taulu poistetaan tietokannasta. Huomaa, että tämä komento poistaa kaikki tiedot ja rakenteen taulusta, joten käytä sitä varoen. ",
+    "url": "/handling-tables/#taulujen-poistaminen",
+    
+    "relUrl": "/handling-tables/#taulujen-poistaminen"
+  },"8": {
+    "doc": "Taulujen käsittely",
+    "title": "Yhteenveto",
+    "content": "SQLite-tietokannan taulujen käsittely on tärkeä osa tietokannan hallintaa. Voit luoda, muokata ja poistaa tauluja SQL-käskyjen avulla. Taulut ovat tietokannan perusyksiköitä, ja niiden avulla voit järjestää ja hallita tietoja tehokkaasti. Muista käyttää varovaisuutta taulujen poistamisessa, sillä se poistaa kaikki tiedot ja rakenteen. ",
+    "url": "/handling-tables/#yhteenveto",
+    
+    "relUrl": "/handling-tables/#yhteenveto"
+  },"9": {
+    "doc": "Tietojen tuominen",
+    "title": "Tietojen tuominen SQLite-tietokantaan",
+    "content": "Voit tuoda tietoja SQLite-tietokantaan useilla eri tavoilla. Tässä on muutamia yleisimpiä menetelmiä: . ",
+    "url": "/importing-data/#tietojen-tuominen-sqlite-tietokantaan",
+    
+    "relUrl": "/importing-data/#tietojen-tuominen-sqlite-tietokantaan"
+  },"10": {
+    "doc": "Tietojen tuominen",
+    "title": "CSV-tiedostojen tuominen",
+    "content": "1. Valmistele CSV-tiedosto . Varmista, että CSV-tiedostosi on oikein muotoiltu. Esimerkiksi: . id,name,email 1,Matti Meikäläinen,matti@example.com 2,Liisa Virtanen,liisa@example.com . 2. Avaa SQLite-komentotulkki . Avaa SQLite-tietokanta tai luo uusi tietokanta: . sqlite3 tietokanta.db . 3. Luo taulu tietokantaan . Luo taulu, johon CSV-tiedoston tiedot tuodaan. Esimerkiksi: . CREATE TABLE users ( id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE ); . 4. Ota käyttöön .mode csv . Aseta SQLite käyttämään CSV-muotoa: .mode csv . 5. Tuonti CSV-tiedostosta . Käytä .import-komentoa tuodaksesi CSV-tiedoston tietokantaan: .import /polku/tiedostoon.csv users . Korvaa /polku/tiedostoon.csv CSV-tiedostosi polulla ja users taulun nimellä. 6. Varmista tuonti . Tarkista, että tiedot on tuotu onnistuneesti: . SELECT * FROM users; . 7. Sulje SQLite . Kun olet valmis, sulje SQLite: .exit . Tämä tuo CSV-tiedoston tiedot SQLite-tietokantaan. Kun tuot tietoja CSV-muodossa SQLite-tietokantaan, on hyvä huomioida seuraavat asiat: . 1. Sarakeotsikot . Jos CSV-tiedostossa on sarakeotsikot, SQLite ei automaattisesti ohita niitä. Voit ohittaa ensimmäisen rivin (otsikot) käyttämällä .mode csv -tilan jälkeen komentoa: .headers on . Tämä varmistaa, että SQLite käsittelee ensimmäistä riviä sarakeotsikoina eikä datana. 2. Tietotyyppien yhteensopivuus . Varmista, että CSV-tiedoston sarakkeiden tiedot vastaavat SQLite-taulun sarakkeiden tietotyyppejä. Esimerkiksi: . | Tekstikentät (TEXT) eivät saa sisältää ylimääräisiä lainausmerkkejä. | Numerokentät (INTEGER, REAL) eivät saa sisältää kirjaimia tai muita ei-numeerisia merkkejä. | . 3. Erotinmerkki . Oletuksena SQLite käyttää pilkkua (,) CSV-tiedoston erottimena. Jos CSV-tiedostosi käyttää jotain muuta, kuten puolipistettä (;), voit vaihtaa erottimen seuraavalla komennolla ennen tuontia: .separator \";\" . 4. Puuttuvat arvot . Jos CSV-tiedostossa on tyhjiä kenttiä, SQLite tulkitsee ne NULL-arvoiksi. Varmista, että tämä on haluttu käyttäytyminen, tai täytä puuttuvat arvot ennen tuontia. 5. Erikoismerkit . Jos CSV-tiedostossa on erikoismerkkejä, kuten lainausmerkkejä, pilkkuja tai uusia rivejä, varmista, että ne on asianmukaisesti escapettu. Esimerkiksi: . | Tekstikentät, joissa on pilkkuja, tulisi ympäröidä lainausmerkeillä: \"arvo, jossa on pilkku\". | Lainausmerkit tekstikentissä tulisi escapettaa kaksoislainauksilla: \"arvo \"\"lainausmerkeillä\"\"\". | . 6. Tietojen validointi . Tarkista tuodut tiedot tuonnin jälkeen varmistaaksesi, että kaikki tiedot on tuotu oikein: . SELECT * FROM my_table LIMIT 10; . 7. Indeksit ja rajoitteet . Jos taulussa on indeksejä tai rajoitteita (esim. UNIQUE tai FOREIGN KEY), varmista, että CSV-tiedoston tiedot eivät riko näitä rajoitteita. Muuten tuonti voi epäonnistua. 8. Suorituskyky . Jos tuot suuria CSV-tiedostoja, suorituskykyä voi parantaa seuraavasti: . | Poista automaattiset transaktiot käytöstä tuonnin ajaksi: BEGIN TRANSACTION; .import data.csv my_table COMMIT; . | Poista indeksit käytöstä ennen tuontia ja luo ne uudelleen tuonnin jälkeen. | . Näiden vinkkien avulla voit varmistaa, että CSV-tiedoston tuonti SQLite-tietokantaan sujuu ongelmitta. ",
+    "url": "/importing-data/#csv-tiedostojen-tuominen",
+    
+    "relUrl": "/importing-data/#csv-tiedostojen-tuominen"
+  },"11": {
+    "doc": "Tietojen tuominen",
+    "title": "SQL-tiedostojen tuominen",
+    "content": "Voit myös tuoda tietoja SQL-tiedostoista käyttämällä sqlite3-komentoa. Esimerkiksi seuraava komento tuo tietoja data.sql-tiedostosta: . sqlite3 my_database.db &lt; data.sql . Tässä esimerkissä data.sql on tuomittava tiedosto, joka sisältää SQL-käskyjä tietojen lisäämiseksi tauluun. ",
+    "url": "/importing-data/#sql-tiedostojen-tuominen",
+    
+    "relUrl": "/importing-data/#sql-tiedostojen-tuominen"
+  },"12": {
+    "doc": "Tietojen tuominen",
+    "title": "Tietojen tuominen",
+    "content": " ",
+    "url": "/importing-data/",
+    
+    "relUrl": "/importing-data/"
+  },"13": {
+    "doc": "SQLite peruskäyttö",
+    "title": "SQLite peruskäyttö",
+    "content": "SQLite on tietokantaohjelmisto, joka on suunniteltu erityisesti käytettäväksi sovelluksissa, joissa tarvitaan kevyttä ja tehokasta tietokannan hallintaa. SQLite on itsenäinen, palvelinvapaa ja nollakonfiguroitava tietokanta, joka tallentaa tiedot yhteen tiedostoon. SQLite on erittäin suosittu valinta monissa sovelluksissa, kuten mobiilisovelluksissa, verkkosovelluksissa ja työpöytäsovelluksissa. SQLite on helppo asentaa ja käyttää, ja se tarjoaa monia hyödyllisiä ominaisuuksia, kuten transaktiot, kyselyt ja tietoturvaominaisuudet. SQLite on erityisen hyödyllinen pienissä ja keskikokoisissa projekteissa, joissa tarvitaan nopeaa ja tehokasta tietokannan hallintaa ilman monimutkaisia asennus- ja konfigurointivaatimuksia. SQLite on myös hyvä valinta, jos haluat käyttää tietokantaa paikallisesti ilman tarvetta palvelinympäristölle. SQLite on kirjoitettu C-kielellä ja se on saatavilla useimmille käyttöjärjestelmille, mukaan lukien Windows, macOS, Linux ja mobiililaitteet. SQLite on myös avoimen lähdekoodin ohjelmisto, joten voit käyttää sitä ilmaiseksi ja muokata sitä tarpeidesi mukaan. ",
+    "url": "/",
+    
+    "relUrl": "/"
+  },"14": {
+    "doc": "Asentaminen",
+    "title": "SQLiten asennus",
+    "content": "SQLite on helppo asentaa ja käyttää. Se on saatavilla useimmille käyttöjärjestelmille, mukaan lukien Windows, macOS ja Linux. ",
+    "url": "/installation/#sqliten-asennus",
+    
+    "relUrl": "/installation/#sqliten-asennus"
+  },"15": {
+    "doc": "Asentaminen",
+    "title": "SQLite eri käyttöjärjestelmissä",
+    "content": "Windows . | Lataa SQLiten Windows-versio täältä. | Pura ladattu tiedosto ja siirrä sqlite3.exe haluamaasi kansioon. | Lisää kansio PATH-muuttujaan, jotta voit käyttää SQLitea komentoriviltä: . | Avaa Järjestelmäasetukset &gt; Ympäristömuuttujat. | Lisää kansio, jossa sqlite3.exe sijaitsee, PATH-muuttujaan. | . | . macOS . | Tarkista, onko SQLite asennettu, kirjoittamalla sqlite3 terminaaliin. | Jos SQLite ei ole asennettuna, asenna se Homebrew:n avulla: brew install sqlite . | . Linux . | Tarkista, onko SQLite asennettu, kirjoittamalla sqlite3 terminaaliin. | Jos SQLite ei ole asennettuna, asenna se jakelusi pakettienhallinnan avulla: . # Ubuntu: sudo apt-get install sqlite3 . # Arch Linux: sudo pacman -S sqlite . | . ",
+    "url": "/installation/#sqlite-eri-k%C3%A4ytt%C3%B6j%C3%A4rjestelmiss%C3%A4",
+    
+    "relUrl": "/installation/#sqlite-eri-käyttöjärjestelmissä"
+  },"16": {
+    "doc": "Asentaminen",
+    "title": "SQLite eri ohjelmointikielissä",
+    "content": "SQLite on saatavilla myös useissa ohjelmointikielissä, joten voit käyttää sitä eri ympäristöissä. Tässä on esimerkkejä SQLiten käytöstä eri ohjelmointikielissä: . | C: SQLite on kirjoitettu C-kielellä, joten voit käyttää sitä suoraan C-ohjelmissa. Lataa SQLiten lähdekoodi täältä ja käännä se omassa ympäristössäsi. Voit myös käyttää SQLiten esikäännettyjä kirjastoja. | C++: SQLite on yhteensopiva C++:n kanssa, joten voit käyttää sitä C++-ohjelmissa samalla tavalla kuin C:ssä. Voit ladata SQLiten lähdekoodin ja kääntää sen C++-ympäristössäsi. | Python: SQLite on sisäänrakennettu Pythonin standardikirjastoon, joten voit käyttää sitä ilman erillistä asennusta. Voit tarkistaa, onko SQLite käytettävissä Pythonissa kirjoittamalla import sqlite3 Python-konsolissa. | Java: SQLite on saatavilla myös Java-kirjastona. Voit ladata SQLiten JDBC-ajurin täältä. Lisää ladattu JAR-tiedosto projektisi riippuvuuksiin. | Node.js: SQLite on saatavilla myös Node.js:lle. Voit asentaa SQLiten Node.js-kirjaston komennolla npm install sqlite3. Tämä asentaa SQLiten ja sen riippuvuudet projektiisi. | PHP: SQLite on saatavilla myös PHP:lle. Voit tarkistaa, onko SQLite käytettävissä PHP:ssä kirjoittamalla phpinfo() ja etsimällä “SQLite” -osion. Jos se ei ole asennettuna, voit asentaa sen PHP:n laajennusten avulla. | Ruby: SQLite on saatavilla myös Ruby:lle. Voit asentaa SQLiten RubyGemsin avulla komennolla gem install sqlite3. Tämä asentaa SQLiten ja sen riippuvuudet projektiisi. | . ",
+    "url": "/installation/#sqlite-eri-ohjelmointikieliss%C3%A4",
+    
+    "relUrl": "/installation/#sqlite-eri-ohjelmointikielissä"
+  },"17": {
+    "doc": "Asentaminen",
+    "title": "Harjoitus",
+    "content": ". | Asenna SQLite omalle käyttöjärjestelmällesi. | Testaa että se toimii kirjoittamalla sqlite3 komentoriville. | . ",
+    "url": "/installation/#harjoitus",
+    
+    "relUrl": "/installation/#harjoitus"
+  },"18": {
+    "doc": "Asentaminen",
+    "title": "Asentaminen",
+    "content": " ",
+    "url": "/installation/",
+    
+    "relUrl": "/installation/"
+  },"19": {
+    "doc": "Uuden tietokannan luominen",
+    "title": "Uuden tietokannan luominen",
+    "content": "SQLite-tietokannan luominen on helppoa ja nopeaa. Voit luoda uuden tietokannan yksinkertaisesti määrittämällä tietokannan nimen ja polun, johon se tallennetaan. SQLite käyttää tiedostopohjaista lähestymistapaa, mikä tarkoittaa, että tietokanta tallennetaan yksittäiseen tiedostoon. Seuraava komento luo uuden SQLite-tietokannan nimeltä my_database.db nykyiseen työhakemistoon. Jos tiedosto on jo olemassa, SQLite avaa sen. $ sqlite3 my_database.db SQLite version 3.39.2 2025-04-08 12:00:00 Enter \".help\" for usage hints. sqlite&gt; . Kunt tietokanta on luotu pitäisi hakemistossa olla kyseinen tiedosto (esim. my_database.db). Komennon jälkeen olet sqlite-kehotteessa, jossa voit myös tarkistaa, että uusi tietokanta on tyhjä, kirjoittamalla komennon: . sqlite&gt; .tables . Komennon antamisen jälkeen ei pitäisi näkyä mitään taluluja. Voit myös poistua sqlite-kehotteesta kirjoittamalla komennon: . sqlite&gt; .exit . Voit avata uudelleen tietokannan kirjoittamalla komennon: . $ sqlite3 my_database.db . Tämä jälkeen voit luoda testitaulun varmistaaksesi, että tietokanta toimii. sqlite&gt; CREATE TABLE test(id INTEGER PRIMARY KEY, name TEXT); sqlite&gt; .tables . Komento näyttää nyt taulun test, jos tietokanta toimii oikein. ",
+    "url": "/new-database/",
+    
+    "relUrl": "/new-database/"
+  },"20": {
+    "doc": "Uuden tietokannan luominen",
+    "title": "Tietokannan poistaminen",
+    "content": "Tietokanta poistetaan poistamalla tiedosto. ",
+    "url": "/new-database/#tietokannan-poistaminen",
+    
+    "relUrl": "/new-database/#tietokannan-poistaminen"
+  },"21": {
+    "doc": "Uuden tietokannan luominen",
+    "title": "Vinkkejä ja parhaita käytäntöjä",
+    "content": "Tietokannan sijainti . On suositeltavaa tallentaa tietokanta hakemistoon, johon on helppo pääsy, mutta joka on suojattu luvattomalta käytöltä. Varmuuskopiointi . Koska SQLite-tietokanta on yksittäinen tiedosto, sen varmuuskopiointi on helppoa. Kopioi vain tiedosto turvalliseen paikkaan. ",
+    "url": "/new-database/#vinkkej%C3%A4-ja-parhaita-k%C3%A4yt%C3%A4nt%C3%B6j%C3%A4",
+    
+    "relUrl": "/new-database/#vinkkejä-ja-parhaita-käytäntöjä"
+  },"22": {
+    "doc": "Uuden tietokannan luominen",
+    "title": "Seuraavat vaiheet",
+    "content": "Kun olet luonut tietokannan, voit alkaa luoda tauluja ja lisätä tietoja siihen. SQLite tarjoaa monia komentoja ja toimintoja tietokannan hallintaan, kuten taulujen luominen, tietojen lisääminen, päivittäminen ja poistaminen. ",
+    "url": "/new-database/#seuraavat-vaiheet",
+    
+    "relUrl": "/new-database/#seuraavat-vaiheet"
+  },"23": {
+    "doc": "SQLite-työkaluja",
+    "title": "SQLite työkaluja",
+    "content": "SQLiten käyttämisen avuksi on monia käteviä työkaluja ja kirjastoja, jotka helpottavat tietokannan hallintaa ja käyttöä. Tässä on joitakin suosituimmista työkaluista: . | DB Browser for SQLite: Tämä on graafinen käyttöliittymä SQLite-tietokannan hallintaan. Se tarjoaa helpon tavan luoda, muokata ja poistaa tauluja sekä suorittaa SQL-kyselyitä. Voit ladata sen osoitteesta sqlitebrowser.org. | SQLiteStudio: Toinen graafinen käyttöliittymä SQLite-tietokannan hallintaan. Se tarjoaa monia ominaisuuksia, kuten tietokannan varmuuskopioinnin ja palauttamisen, tietojen tuomisen ja viemisen eri muodoissa sekä SQL-kyselyiden suorittamisen. Voit ladata sen osoitteesta sqlitestudio.pl. | SQLite CLI: SQLite-tietokannan komentorivikäyttöliittymä, joka on mukana SQLite-asennuksessa. Se tarjoaa monia komentoja tietokannan hallintaan, kuten taulujen luomiseen, tietojen lisäämiseen ja kyselyiden suorittamiseen. Voit käyttää sitä kirjoittamalla sqlite3 komentoriville. | . Visual Studio Code -laajennukset . | SQLite: Tämä laajennus tarjoaa SQLite-tietokannan tuen Visual Studio Codessa. Voit selata tietokantoja, suorittaa SQL-kyselyitä ja tarkastella tuloksia suoraan editorissa. Voit asentaa sen Visual Studio Code -markkinapaikasta. | SQLite Viewer: Tämä laajennus tarjoaa SQLite-tietokannan tarkastelun Visual Studio Codessa. Voit avata SQLite-tiedostoja ja tarkastella niiden sisältöä helposti. Voit asentaa sen Visual Studio Code -markkinapaikasta. | . ",
+    "url": "/sqlite-tools/#sqlite-ty%C3%B6kaluja",
+    
+    "relUrl": "/sqlite-tools/#sqlite-työkaluja"
+  },"24": {
+    "doc": "SQLite-työkaluja",
+    "title": "SQLite-työkaluja",
+    "content": " ",
+    "url": "/sqlite-tools/",
+    
+    "relUrl": "/sqlite-tools/"
+  }
+}
